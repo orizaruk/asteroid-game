@@ -1,3 +1,4 @@
+import sys
 import pygame
 from constants import *
 from player import Player
@@ -32,6 +33,13 @@ def main():
         pygame.Surface.fill(screen, (0, 0, 0))
 
         updateables.update(delta_time)
+        # check if asteroids are colliding with player 
+        for asteroid in asteroids:
+            if asteroid.check_collision(player_obj):
+                print("Game over!")
+                sys.exit()
+
+
         for drawable in drawables:
             drawable.draw(screen)
 
@@ -40,9 +48,6 @@ def main():
         delta_time = game_clock.tick(60) / 1000
     
     pygame.quit()
-
-
-
 
 
 if __name__ == "__main__":
